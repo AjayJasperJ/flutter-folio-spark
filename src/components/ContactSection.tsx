@@ -60,41 +60,45 @@ const ContactSection: React.FC = () => {
   ];
 
   return (
-    <section id="contact" className="py-20 bg-white">
+    <section id="contact" className="py-20 bg-gray-900/90 relative">
+      <div className="absolute inset-0 bg-grid-white/[0.03] -z-10"></div>
+      <div className="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-primary-flutter/10 blur-3xl -z-10"></div>
+      <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-primary-flutterLight/10 blur-3xl -z-10"></div>
+      
       <div className="container mx-auto px-6 lg:px-8">
         <h2 className="section-header text-center mx-auto mb-4">Get In Touch</h2>
-        <p className="text-gray-600 text-center max-w-2xl mx-auto mb-12">
+        <p className="text-gray-300 text-center max-w-2xl mx-auto mb-12">
           Have a project in mind or want to discuss potential opportunities?
           Feel free to reach out. I'm always open to new and exciting projects.
         </p>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-1 opacity-0 animate-slide-up">
-            <div className="flutter-card h-full">
-              <h3 className="text-xl font-bold text-gray-800 mb-6">Contact Information</h3>
+            <div className="glass-morphism h-full p-8">
+              <h3 className="text-xl font-bold text-gray-100 mb-6">Contact Information</h3>
               
               <div className="space-y-6">
                 {contactInfo.map((info, index) => (
                   <div key={index} className="flex items-start">
-                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mr-4">
-                      <info.icon className="w-5 h-5 text-primary-flutter" />
+                    <div className="w-10 h-10 rounded-full bg-primary-flutter/20 flex items-center justify-center flex-shrink-0 mr-4">
+                      <info.icon className="w-5 h-5 text-primary-flutterLight" />
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">{info.label}</p>
-                      <p className="text-gray-700 font-medium">{info.value}</p>
+                      <p className="text-sm text-gray-400">{info.label}</p>
+                      <p className="text-gray-100 font-medium">{info.value}</p>
                     </div>
                   </div>
                 ))}
               </div>
               
-              <div className="mt-8 pt-6 border-t border-gray-100">
-                <h4 className="text-gray-800 font-medium mb-4">Connect with me</h4>
+              <div className="mt-8 pt-6 border-t border-gray-800">
+                <h4 className="text-gray-100 font-medium mb-4">Connect with me</h4>
                 <div className="flex space-x-4">
                   {['github', 'linkedin', 'twitter'].map((social) => (
                     <a 
                       key={social}
                       href="#" 
-                      className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center hover:bg-primary-flutter hover:text-white transition-colors"
+                      className="w-10 h-10 rounded-full bg-primary-flutter/20 flex items-center justify-center hover:bg-primary-flutter hover:text-white transition-colors"
                     >
                       <span className="sr-only">{social}</span>
                       <i className={`fab fa-${social}`}></i>
@@ -106,13 +110,13 @@ const ContactSection: React.FC = () => {
           </div>
           
           <div className="lg:col-span-2 opacity-0 animate-slide-up animate-delay-100">
-            <div className="flutter-card">
-              <h3 className="text-xl font-bold text-gray-800 mb-6">Send Me a Message</h3>
+            <div className="glass-morphism p-8">
+              <h3 className="text-xl font-bold text-gray-100 mb-6">Send Me a Message</h3>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-1">
                       Your Name
                     </label>
                     <Input
@@ -122,11 +126,11 @@ const ContactSection: React.FC = () => {
                       onChange={handleChange}
                       required
                       placeholder="John Doe"
-                      className="w-full"
+                      className="w-full bg-gray-800/50 border-gray-700 text-gray-100"
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
                       Email Address
                     </label>
                     <Input
@@ -137,13 +141,13 @@ const ContactSection: React.FC = () => {
                       onChange={handleChange}
                       required
                       placeholder="john.doe@example.com"
-                      className="w-full"
+                      className="w-full bg-gray-800/50 border-gray-700 text-gray-100"
                     />
                   </div>
                 </div>
                 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-1">
                     Subject
                   </label>
                   <Input
@@ -153,12 +157,12 @@ const ContactSection: React.FC = () => {
                     onChange={handleChange}
                     required
                     placeholder="Project Inquiry"
-                    className="w-full"
+                    className="w-full bg-gray-800/50 border-gray-700 text-gray-100"
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-1">
                     Your Message
                   </label>
                   <Textarea
@@ -168,13 +172,13 @@ const ContactSection: React.FC = () => {
                     onChange={handleChange}
                     required
                     placeholder="Hello, I'm interested in working with you on..."
-                    className="w-full min-h-[150px]"
+                    className="w-full min-h-[150px] bg-gray-800/50 border-gray-700 text-gray-100"
                   />
                 </div>
                 
                 <Button 
                   type="submit"
-                  className="w-full bg-primary-flutter hover:bg-primary-flutterLight text-white"
+                  className="w-full bg-primary-flutter hover:bg-primary-flutterLight text-white glass-morphism"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (

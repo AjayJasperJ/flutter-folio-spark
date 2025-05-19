@@ -52,19 +52,22 @@ const ProjectsSection: React.FC = () => {
   ];
 
   return (
-    <section id="projects" className="py-20 bg-white">
+    <section id="projects" className="py-20 bg-gray-900/50 relative">
+      <div className="absolute inset-0 bg-grid-white/[0.03] -z-10"></div>
+      <div className="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-primary-flutter/10 blur-3xl -z-10"></div>
+      <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-primary-flutterLight/10 blur-3xl -z-10"></div>
       <div className="container mx-auto px-6 lg:px-8">
         <h2 className="section-header text-center mx-auto mb-4">Featured Projects</h2>
-        <p className="text-gray-600 text-center max-w-2xl mx-auto mb-12">
+        <p className="text-gray-300 text-center max-w-2xl mx-auto mb-12">
           A selection of my recent Flutter applications showcasing beautiful UI design, 
           performance optimization, and complex feature implementation.
         </p>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
           {projects.map((project, index) => (
             <Card 
               key={index}
-              className="overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 opacity-0 animate-slide-up animate-delay-200"
+              className="overflow-hidden border border-gray-800 bg-gray-800/30 backdrop-blur-md hover:shadow-lg hover:shadow-primary-flutter/20 transition-all duration-300 opacity-0 animate-slide-up animate-delay-200"
             >
               <div className="overflow-hidden">
                 <AspectRatio ratio={16 / 9}>
@@ -76,12 +79,12 @@ const ProjectsSection: React.FC = () => {
                 </AspectRatio>
               </div>
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-800 mb-2">{project.title}</h3>
-                <p className="text-gray-600 mb-4">{project.description}</p>
+                <h3 className="text-xl font-bold text-gray-100 mb-2">{project.title}</h3>
+                <p className="text-gray-300 mb-4">{project.description}</p>
                 
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.tags.map((tag, i) => (
-                    <Badge key={i} variant="secondary" className="bg-blue-50 text-primary-flutter hover:bg-blue-100">
+                    <Badge key={i} variant="secondary" className="bg-primary-flutter/10 text-primary-flutterLight hover:bg-primary-flutter/20">
                       {tag}
                     </Badge>
                   ))}
@@ -89,13 +92,13 @@ const ProjectsSection: React.FC = () => {
                 
                 <div className="flex gap-4">
                   {project.demoUrl && (
-                    <Button variant="default" size="sm" className="bg-primary-flutter hover:bg-primary-flutterLight">
+                    <Button variant="default" size="sm" className="bg-primary-flutter hover:bg-primary-flutterLight glass-morphism">
                       <Eye className="w-4 h-4 mr-2" />
                       Live Demo
                     </Button>
                   )}
                   {project.repoUrl && (
-                    <Button variant="outline" size="sm" className="border-primary-flutter text-primary-flutter hover:bg-primary-flutter/10">
+                    <Button variant="outline" size="sm" className="border-primary-flutter text-primary-flutterLight hover:bg-primary-flutter/10 glass-morphism">
                       <Github className="w-4 h-4 mr-2" />
                       Source Code
                     </Button>
