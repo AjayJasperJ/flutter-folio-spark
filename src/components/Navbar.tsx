@@ -30,12 +30,13 @@ const Navbar: React.FC = () => {
     <nav 
       className={cn(
         'fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4',
-        scrolled ? 'bg-white shadow-md py-3' : 'bg-transparent'
+        scrolled ? 'glass-morphism py-3' : 'bg-transparent'
       )}
     >
       <div className="container mx-auto flex justify-between items-center px-6 lg:px-8">
-        <a href="#home" className="text-2xl font-bold text-primary-flutter">
+        <a href="#home" className="text-2xl font-bold text-primary-flutter relative">
           Flutter<span className="text-primary-flutterLight">Dev</span>
+          <div className="absolute -inset-1 blur-sm bg-primary-flutter/30 -z-10 rounded-full"></div>
         </a>
         
         {/* Desktop Navigation */}
@@ -44,9 +45,10 @@ const Navbar: React.FC = () => {
             <li key={link.name}>
               <a 
                 href={link.href}
-                className="text-gray-700 hover:text-primary-flutter font-medium transition-colors"
+                className="text-gray-300 hover:text-primary-flutterLight font-medium transition-colors relative group"
               >
                 {link.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-flutterLight transition-all duration-300 group-hover:w-full"></span>
               </a>
             </li>
           ))}
@@ -54,7 +56,7 @@ const Navbar: React.FC = () => {
         
         {/* Mobile Menu Button */}
         <button 
-          className="md:hidden text-gray-700"
+          className="md:hidden text-gray-300"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           <svg 
@@ -76,13 +78,13 @@ const Navbar: React.FC = () => {
       
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white shadow-lg">
+        <div className="md:hidden glass-morphism mt-2 mx-4 rounded-lg">
           <ul className="py-3 px-6">
             {navLinks.map((link) => (
               <li key={link.name} className="py-2">
                 <a 
                   href={link.href}
-                  className="block text-gray-700 hover:text-primary-flutter font-medium"
+                  className="block text-gray-300 hover:text-primary-flutterLight font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.name}
