@@ -66,7 +66,6 @@ const SkillsSection: React.FC = () => {
                     <Progress 
                       value={skill.level} 
                       className="h-2 bg-gray-700"
-                      indicatorClassName="bg-gradient-to-r from-primary-flutter to-primary-flutterLight"
                     />
                   </div>
                 ))}
