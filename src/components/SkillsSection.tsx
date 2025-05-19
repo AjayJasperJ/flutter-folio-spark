@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Progress } from "@/components/ui/progress";
-import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 
 interface SkillCategory {
   name: string;
@@ -81,12 +80,12 @@ const SkillsSection: React.FC = () => {
       <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-primary-flutterLight/10 blur-3xl -z-10"></div>
       
       <div className="container mx-auto px-6 lg:px-8">
-        <h2 className="section-header text-center mx-auto mb-12">Skills & Expertise</h2>
+        <h2 className="section-header text-center mx-auto mb-12 text-primary-flutterLight brightness-125">Skills & Expertise</h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {skillCategories.map((category, index) => (
-            <div key={index} className="opacity-0 animate-slide-up glass-morphism p-6 rounded-lg">
-              <h3 className="text-xl font-bold text-primary-flutterLight mb-6">{category.name}</h3>
+            <div key={index} className="opacity-0 animate-slide-up glass-morphism p-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-primary-flutter/40 hover:bg-primary-flutter/10">
+              <h3 className="text-xl font-bold text-primary-flutterLight brightness-110 mb-6">{category.name}</h3>
               <div className="space-y-6">
                 {category.skills.map((skill, skillIndex) => (
                   <div key={skillIndex}>
@@ -106,30 +105,25 @@ const SkillsSection: React.FC = () => {
         </div>
         
         <div className="mt-16 opacity-0 animate-slide-up animate-delay-100">
-          <h3 className="text-xl font-bold text-primary-flutterLight mb-6 text-center">Technologies I Work With</h3>
+          <h3 className="text-xl font-bold text-primary-flutterLight brightness-110 mb-6 text-center">Technologies I Work With</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {technologies.map((tech, index) => (
-              <HoverCard key={index}>
-                <HoverCardTrigger asChild>
-                  <div className="glass-morphism flex flex-col items-center py-6 px-4 cursor-pointer transition-all duration-300 hover:bg-primary-flutter/20 hover:shadow-lg hover:scale-105 hover:border-primary-flutterLight/30 group">
-                    <div className="w-16 h-16 flex items-center justify-center mb-3 transition-transform group-hover:scale-110">
-                      <img 
-                        src={tech.image} 
-                        alt={tech.name} 
-                        className="max-w-full max-h-full"
-                        style={tech.name === "Dart" ? { filter: "brightness(0) invert(0.5) sepia(1) saturate(5) hue-rotate(175deg)" } : {}}
-                      />
-                    </div>
-                    <p className="text-gray-200 font-medium group-hover:text-primary-flutterLight">{tech.name}</p>
-                  </div>
-                </HoverCardTrigger>
-                <HoverCardContent className="neo-blur border-primary-flutter/20">
-                  <div className="space-y-2">
-                    <h4 className="text-lg font-semibold text-primary-flutterLight">{tech.name}</h4>
-                    <p className="text-sm text-gray-300">{tech.description || `A technology used in Flutter development.`}</p>
-                  </div>
-                </HoverCardContent>
-              </HoverCard>
+              <div key={index} className="glass-morphism flex flex-col items-center py-6 px-4 cursor-pointer transition-all duration-300 hover:bg-primary-flutter/20 hover:shadow-lg hover:scale-105 hover:border-primary-flutterLight/30 group">
+                <div className="w-16 h-16 flex items-center justify-center mb-3 transition-transform group-hover:scale-110">
+                  <img 
+                    src={tech.image} 
+                    alt={tech.name} 
+                    className="max-w-full max-h-full"
+                    style={tech.name === "Dart" ? { filter: "brightness(0) invert(0.5) sepia(1) saturate(5) hue-rotate(175deg)" } : {}}
+                  />
+                </div>
+                <p className="text-gray-200 font-medium group-hover:text-primary-flutterLight">
+                  {tech.name}
+                </p>
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity absolute top-full left-0 right-0 bg-gray-800/90 backdrop-blur-md p-3 rounded-b-lg text-xs text-gray-300 mt-1 pointer-events-none">
+                  {tech.description}
+                </div>
+              </div>
             ))}
           </div>
         </div>

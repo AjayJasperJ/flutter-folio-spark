@@ -57,7 +57,7 @@ const ProjectsSection: React.FC = () => {
       <div className="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-primary-flutter/10 blur-3xl -z-10"></div>
       <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-primary-flutterLight/10 blur-3xl -z-10"></div>
       <div className="container mx-auto px-6 lg:px-8">
-        <h2 className="section-header text-center mx-auto mb-4">Featured Projects</h2>
+        <h2 className="section-header text-center mx-auto mb-4 text-primary-flutterLight brightness-125">Featured Projects</h2>
         <p className="text-gray-300 text-center max-w-2xl mx-auto mb-12">
           A selection of my recent Flutter applications showcasing beautiful UI design, 
           performance optimization, and complex feature implementation.
@@ -67,7 +67,7 @@ const ProjectsSection: React.FC = () => {
           {projects.map((project, index) => (
             <Card 
               key={index}
-              className="overflow-hidden border border-gray-800 bg-gray-800/30 backdrop-blur-md hover:shadow-lg hover:shadow-primary-flutter/20 transition-all duration-300 opacity-0 animate-slide-up animate-delay-200"
+              className="overflow-hidden border border-gray-800 bg-gray-800/30 backdrop-blur-md hover:shadow-lg hover:shadow-primary-flutter/30 hover:border-primary-flutterLight/30 transition-all duration-300 opacity-0 animate-slide-up animate-delay-200 hover:translate-y-[-8px]"
             >
               <div className="overflow-hidden">
                 <AspectRatio ratio={16 / 9}>
@@ -79,7 +79,7 @@ const ProjectsSection: React.FC = () => {
                 </AspectRatio>
               </div>
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-100 mb-2">{project.title}</h3>
+                <h3 className="text-xl font-bold text-gray-100 brightness-110 mb-2">{project.title}</h3>
                 <p className="text-gray-300 mb-4">{project.description}</p>
                 
                 <div className="flex flex-wrap gap-2 mb-6">

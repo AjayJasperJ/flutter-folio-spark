@@ -52,7 +52,7 @@ const ExperienceSection: React.FC = () => {
       <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-primary-flutterLight/10 blur-3xl -z-10"></div>
       
       <div className="container mx-auto px-6 lg:px-8">
-        <h2 className="section-header text-center mx-auto mb-12">Professional Experience</h2>
+        <h2 className="section-header text-center mx-auto mb-12 text-primary-flutterLight brightness-125">Professional Experience</h2>
         
         <div className="max-w-3xl mx-auto">
           <div className="relative">
@@ -69,11 +69,11 @@ const ExperienceSection: React.FC = () => {
                   <div className="hidden md:block absolute top-0 md:top-6 w-3 h-3 rounded-full bg-primary-flutter border-4 border-gray-900 shadow-md" 
                        style={{ left: '50%', transform: 'translateX(-50%)' }}></div>
                   
-                  <div className="glass-morphism p-6">
+                  <div className="glass-morphism p-8 transition-all duration-300 hover:bg-primary-flutter/15 hover:shadow-lg hover:shadow-primary-flutter/30 hover:border-primary-flutterLight/30">
                     <span className="inline-block px-3 py-1 mb-2 text-xs font-semibold text-white bg-primary-flutter rounded-full">
                       {exp.period}
                     </span>
-                    <h3 className="text-xl font-bold text-gray-100">{exp.role}</h3>
+                    <h3 className="text-xl font-bold text-gray-100 brightness-110">{exp.role}</h3>
                     <p className="text-primary-flutterLight font-medium mb-3">{exp.company}</p>
                     <ul className="text-gray-300 space-y-3 pl-2">
                       {exp.description.map((item, i) => (

@@ -66,7 +66,7 @@ const ContactSection: React.FC = () => {
       <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-primary-flutterLight/10 blur-3xl -z-10"></div>
       
       <div className="container mx-auto px-6 lg:px-8">
-        <h2 className="section-header text-center mx-auto mb-4">Get In Touch</h2>
+        <h2 className="section-header text-center mx-auto mb-4 text-primary-flutterLight brightness-125">Get In Touch</h2>
         <p className="text-gray-300 text-center max-w-2xl mx-auto mb-12">
           Have a project in mind or want to discuss potential opportunities?
           Feel free to reach out. I'm always open to new and exciting projects.
@@ -74,31 +74,31 @@ const ContactSection: React.FC = () => {
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-1 opacity-0 animate-slide-up">
-            <div className="glass-morphism h-full p-8">
-              <h3 className="text-xl font-bold text-gray-100 mb-6">Contact Information</h3>
+            <div className="glass-morphism h-full p-8 transition-all duration-300 hover:bg-primary-flutter/10 hover:shadow-lg hover:shadow-primary-flutter/30 hover:border-primary-flutterLight/30">
+              <h3 className="text-xl font-bold text-gray-100 brightness-110 mb-6">Contact Information</h3>
               
               <div className="space-y-6">
                 {contactInfo.map((info, index) => (
-                  <div key={index} className="flex items-start">
-                    <div className="w-10 h-10 rounded-full bg-primary-flutter/20 flex items-center justify-center flex-shrink-0 mr-4">
+                  <div key={index} className="flex items-start group transition-all duration-300 p-2 rounded-lg hover:bg-primary-flutter/10">
+                    <div className="w-10 h-10 rounded-full bg-primary-flutter/20 flex items-center justify-center flex-shrink-0 mr-4 group-hover:bg-primary-flutter/40 transition-all duration-300">
                       <info.icon className="w-5 h-5 text-primary-flutterLight" />
                     </div>
                     <div>
                       <p className="text-sm text-gray-400">{info.label}</p>
-                      <p className="text-gray-100 font-medium">{info.value}</p>
+                      <p className="text-gray-100 font-medium group-hover:text-primary-flutterLight transition-colors">{info.value}</p>
                     </div>
                   </div>
                 ))}
               </div>
               
               <div className="mt-8 pt-6 border-t border-gray-800">
-                <h4 className="text-gray-100 font-medium mb-4">Connect with me</h4>
+                <h4 className="text-gray-100 font-medium mb-4 brightness-110">Connect with me</h4>
                 <div className="flex space-x-4">
                   {['github', 'linkedin', 'twitter'].map((social) => (
                     <a 
                       key={social}
                       href="#" 
-                      className="w-10 h-10 rounded-full bg-primary-flutter/20 flex items-center justify-center hover:bg-primary-flutter hover:text-white transition-colors"
+                      className="w-10 h-10 rounded-full bg-primary-flutter/20 flex items-center justify-center hover:bg-primary-flutter hover:text-white hover:scale-110 transition-all"
                     >
                       <span className="sr-only">{social}</span>
                       <i className={`fab fa-${social}`}></i>
@@ -111,7 +111,7 @@ const ContactSection: React.FC = () => {
           
           <div className="lg:col-span-2 opacity-0 animate-slide-up animate-delay-100">
             <div className="glass-morphism p-8">
-              <h3 className="text-xl font-bold text-gray-100 mb-6">Send Me a Message</h3>
+              <h3 className="text-xl font-bold text-gray-100 brightness-110 mb-6">Send Me a Message</h3>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -126,7 +126,7 @@ const ContactSection: React.FC = () => {
                       onChange={handleChange}
                       required
                       placeholder="John Doe"
-                      className="w-full bg-gray-800/50 border-gray-700 text-gray-100"
+                      className="w-full bg-gray-800/50 border-gray-700 text-gray-100 focus:border-primary-flutterLight"
                     />
                   </div>
                   <div>
@@ -141,7 +141,7 @@ const ContactSection: React.FC = () => {
                       onChange={handleChange}
                       required
                       placeholder="john.doe@example.com"
-                      className="w-full bg-gray-800/50 border-gray-700 text-gray-100"
+                      className="w-full bg-gray-800/50 border-gray-700 text-gray-100 focus:border-primary-flutterLight"
                     />
                   </div>
                 </div>
@@ -157,7 +157,7 @@ const ContactSection: React.FC = () => {
                     onChange={handleChange}
                     required
                     placeholder="Project Inquiry"
-                    className="w-full bg-gray-800/50 border-gray-700 text-gray-100"
+                    className="w-full bg-gray-800/50 border-gray-700 text-gray-100 focus:border-primary-flutterLight"
                   />
                 </div>
                 
@@ -172,13 +172,13 @@ const ContactSection: React.FC = () => {
                     onChange={handleChange}
                     required
                     placeholder="Hello, I'm interested in working with you on..."
-                    className="w-full min-h-[150px] bg-gray-800/50 border-gray-700 text-gray-100"
+                    className="w-full min-h-[150px] bg-gray-800/50 border-gray-700 text-gray-100 focus:border-primary-flutterLight"
                   />
                 </div>
                 
                 <Button 
                   type="submit"
-                  className="w-full bg-primary-flutter hover:bg-primary-flutterLight text-white glass-morphism"
+                  className="w-full glass-morphism bg-primary-flutter/80 hover:bg-primary-flutter text-white border border-primary-flutter/50 hover:shadow-lg hover:shadow-primary-flutter/30 transition-all duration-300 transform hover:-translate-y-1"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
