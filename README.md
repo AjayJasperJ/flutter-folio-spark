@@ -34,3 +34,7 @@ Vite derives the base path and canonical URL from `GITHUB_REPOSITORY` during Act
 - Search and social metadata: `index.html`
 
 Project descriptions are curated from repository documentation; filters work locally and do not require API access. Client work is summarized from the supplied resume without exposing private repository contents.
+
+## License
+
+Original portfolio code, design, and content are **Copyright © 2026 Ajay Jasper J. All rights reserved.** Reuse requires written permission, subject to applicable law and GitHub's Terms of Service. The published site may be viewed, and the resume may be downloaded and shared for recruitment and professional evaluation. Third-party components and client-owned materials retain their respective rights and licenses. See [LICENSE](LICENSE).
