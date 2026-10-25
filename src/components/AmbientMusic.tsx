@@ -1,38 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
-import { Music2, Pause, Play } from 'lucide-react';
-
-// Original generative ambient score: warm pads and a sparse pentatonic melody.
-// Synthesized locally, with no downloads, tracking, or third-party audio.
+import { Play, VolumeX } from 'lucide-react';
 export default function AmbientMusic() {
   const engine = useRef<{ context: AudioContext; master: GainNode; timer: ReturnType<typeof setInterval> } | null>(null);
+  const optedOut = useRef(false);
+  const pending = useRef(false);
   const [playing, setPlaying] = useState(false);
-  const [busy, setBusy] = useState(false);
-  const [volume, setVolume] = useState(30);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    const hide = () => {
-      if (document.hidden && engine.current) {
-        void engine.current.context.suspend();
-        setPlaying(false);
-      }
-    };
-    document.addEventListener('visibilitychange', hide);
-    return () => {
-      document.removeEventListener('visibilitychange', hide);
-      if (engine.current) {
-        clearInterval(engine.current.timer);
-        void engine.current.context.close();
-      }
-    };
-  }, []);
-
-  async function toggle() {
-    if (busy) return;
-    setBusy(true);
-    setError('');
+  const [failed, setFailed] = useState(false);
+  async function startMusic() {
+    if (optedOut.current || pending.current) return;
+    pending.current = true;
     try {
       if (!engine.current) {
+        const volume = 30;
         const context = new AudioContext();
         const master = context.createGain();
         master.gain.value = volume / 100;
@@ -70,35 +49,47 @@ export default function AmbientMusic() {
           }
         }
         engine.current = { context, master, timer: setInterval(schedule, 250) };
-        await context.resume();
-        schedule();
-        setPlaying(context.state === 'running');
-      } else if (playing) {
-        await engine.current.context.suspend();
-        setPlaying(false);
-      } else {
-        await engine.current.context.resume();
-        setPlaying(engine.current.context.state === 'running');
+
       }
-    } catch {
+      // A blocked autoplay resume can remain pending until a user gesture.
+      pending.current = false;
+      await engine.current.context.resume();
+      setPlaying(engine.current.context.state === 'running');
+      setFailed(false);
+    } catch { setPlaying(false); setFailed(true); }
+    finally { pending.current = false; }
+  }
+  useEffect(() => {
+    void startMusic();
+    const interact = (event: Event) => {
+      if (event.target instanceof Element && event.target.closest('.footer-music')) return;
+      void startMusic();
+    };
+    document.addEventListener('pointerdown', interact);
+    document.addEventListener('keydown', interact);
+    return () => {
+      document.removeEventListener('pointerdown', interact);
+      document.removeEventListener('keydown', interact);
       if (engine.current) {
         clearInterval(engine.current.timer);
         void engine.current.context.close();
         engine.current = null;
       }
+    };
+  }, []);
+  function toggle() {
+    if (playing && engine.current) {
+      optedOut.current = true;
+      engine.current.master.gain.setTargetAtTime(0, engine.current.context.currentTime, 0.08);
       setPlaying(false);
-      setError('Audio is unavailable in this browser.');
-    } finally { setBusy(false); }
+    } else {
+      optedOut.current = false;
+      if (engine.current) engine.current.master.gain.setTargetAtTime(0.3, engine.current.context.currentTime, 0.08);
+      void startMusic();
+    }
   }
-
-  return <aside className="ambient-player" aria-label="Background music">
-    <div className="ambient-title"><Music2 size={15}/><span>Ambient studio<small>{playing ? 'A little calm, while you explore' : 'An optional soundtrack'}</small></span></div>
-    <button onClick={toggle} disabled={busy} aria-label={playing ? 'Pause background music' : 'Play background music'} aria-pressed={playing}>{playing ? <Pause size={16}/> : <Play size={16}/>}<span>{playing ? 'Pause' : 'Play'}</span></button>
-    <label className="ambient-volume"><span>Volume</span><input type="range" min="0" max="100" value={volume} aria-label="Music volume" onChange={event => {
-      const value = Number(event.target.value);
-      setVolume(value);
-      if (engine.current) engine.current.master.gain.setTargetAtTime(value / 100, engine.current.context.currentTime, 0.15);
-    }}/></label>
-    {error && <span className="ambient-error" role="status">{error}</span>}
-  </aside>;
+  const label = playing ? 'Mute background music' : 'Play background music';
+  return <button className="footer-music" type="button" onClick={toggle} aria-label={label} aria-pressed={playing} title={failed ? 'Retry background music' : label}>
+    {playing ? <VolumeX size={18}/> : <Play size={18}/>}
+  </button>;
 }
