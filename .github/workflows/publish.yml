@@ -25,6 +25,7 @@ jobs:
       - name: Verify deployable output
         run: |
           test -s dist/index.html
+          test -s dist/AjayJasperJ_Resume.pdf
           test -s dist/favicon.svg
           touch dist/.nojekyll
       - uses: actions/upload-pages-artifact@v3
