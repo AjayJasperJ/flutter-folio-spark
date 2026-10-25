@@ -21,11 +21,11 @@ npm run preview
 
 `.github/workflows/publish.yml` builds on pull requests, publishes every push to `main`, and supports **Actions → Build and publish portfolio → Run workflow** for manual publishing. The workflow runs on GitHub-hosted Ubuntu runners, checks TypeScript, builds, verifies the output and favicon, and deploys the Pages artifact with OIDC. No personal access token is stored.
 
-Live URL: https://ajayjasperj.github.io/flutter-folio-spark/
+Live URL: https://ajayjasperj.github.io/portfolio/
 
 For the first deployment, set **Settings → Pages → Build and deployment → Source → GitHub Actions** if Pages is not already enabled. GitHub's automatic enablement step may require administrator permissions beyond the workflow token; selecting the source once resolves that. Subsequent pushes deploy automatically.
 
-Vite's base is `/flutter-folio-spark/`. Update `vite.config.ts` and canonical metadata if you rename the repository or use a custom domain.
+Vite derives the base path and canonical URL from `GITHUB_REPOSITORY` during Actions builds, so repository renames are supported automatically. Local builds default to `/portfolio/`. After renaming the repository, run the publishing workflow to deploy at the new address.
 
 ## Content updates
 
