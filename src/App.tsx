@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { ArrowDown, ArrowUpRight, Check, Code2, Download, Github, Layers3, Mail, Menu, Smartphone, WifiOff, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowDown, ArrowUpRight, Check, Code2, Download, Github, Layers3, Mail, Menu, Moon, Sun, Smartphone, WifiOff, X } from 'lucide-react';
 import './portfolio.css';
 import AmbientMusic from './components/AmbientMusic';
 
@@ -55,9 +55,21 @@ function ProjectVisual({ kind }: { kind: string }) {
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [filter, setFilter] = useState('All work');
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    try {
+      const saved = localStorage.getItem('ajay-portfolio-theme');
+      if (saved === 'light' || saved === 'dark') return saved;
+    } catch { /* Storage can be unavailable in privacy mode. */ }
+    return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+    try { localStorage.setItem('ajay-portfolio-theme', theme); } catch { /* Optional persistence. */ }
+  }, [theme]);
   return <>
     <a className="skip-link" href="#main">Skip to content</a>
-    <header className="site-header"><div className="nav-wrap"><a className="wordmark" href="#home" aria-label="Ajay Jasper home">aj<span>·</span><small>AJAY JASPER J</small></a><button className="menu-toggle" onClick={()=>setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="main-nav" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}>{menuOpen ? <X/> : <Menu/>}</button><nav id="main-nav" className={menuOpen ? 'open' : ''} aria-label="Main navigation">{[['Work','work'],['About','about'],['Experience','experience']].map(([name,id])=><a key={id} href={`#${id}`} onClick={()=>setMenuOpen(false)}>{name}</a>)}<a href="mailto:ajayjasperj@outlook.com" className="nav-contact">Let’s talk <ArrowUpRight size={16}/></a></nav></div></header>
+    <header className="site-header"><div className="nav-wrap"><a className="wordmark" href="#home" aria-label="Ajay Jasper home">aj<span>·</span><small>AJAY JASPER J</small></a><button className="menu-toggle" onClick={()=>setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="main-nav" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}>{menuOpen ? <X/> : <Menu/>}</button><div className="header-actions"><button className="theme-toggle" type="button" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'} title={theme === 'light' ? 'Dark mode' : 'Light mode'} aria-pressed={theme === 'dark'}>{theme === 'light' ? <Moon size={18}/> : <Sun size={18}/>}<span>{theme === 'light' ? 'Dark' : 'Light'}</span></button></div><nav id="main-nav" className={menuOpen ? 'open' : ''} aria-label="Main navigation">{[['Work','work'],['About','about'],['Experience','experience']].map(([name,id])=><a key={id} href={`#${id}`} onClick={()=>setMenuOpen(false)}>{name}</a>)}<a href="mailto:ajayjasperj@outlook.com" className="nav-contact">Let’s talk <ArrowUpRight size={16}/></a></nav></div></header>
     <main id="main">
       <section id="home" className="hero section-wrap"><div className="hero-content"><div className="eyebrow"><span className="status-dot"/> FLUTTER DEVELOPER · TAMIL NADU, INDIA</div><h1>Flutter developer.<br/>Android &amp; iOS apps.<br/><em>Built for production.</em></h1><p className="hero-description">I’m Ajay Jasper J. I build and deliver Flutter applications for Android and iOS, including production client apps for worship, real estate events, and shipping operations.</p><div className="hero-actions"><a className="button primary" href="#work">Explore my work <ArrowDown size={17}/></a><a className="button secondary" href={resume} download="AjayJasperJ_Resume.pdf">Download resume <Download size={17}/></a></div><div className="hero-note"><span/> Open to mobile development opportunities</div><div className="hero-proof"><div><strong>03</strong><span>Production client apps</span></div><div><strong>{String(categories.length).padStart(2, '0')}</strong><span>Areas of work</span></div><div><strong>{String(projects.length).padStart(2, '0')}</strong><span>Selected projects</span></div></div></div><div className="hero-art" aria-label="Illustrative mobile interface"><div className="art-topline"><span>CRAFT / CODE / SHIP</span><span>01 — MOBILE</span></div><div className="phone"><div className="phone-camera"/><div className="phone-bar"><span>9:41</span><span>••• ▰</span></div><div className="phone-content"><span className="phone-kicker">A LITTLE EVERY DAY</span><h2>Ideas into<br/>everyday impact<span>↗</span></h2><div className="phone-landscape"><div className="landscape-sun"/><div className="mountain back"/><div className="mountain front"/><span>Made for the journey.</span></div><div className="phone-row"><span className="phone-icon"><Layers3 size={20}/></span><div>Built with intention<small>Simple outside. Solid inside.</small></div><Check size={17}/></div><div className="phone-bottom"><span>⌂</span><span>◈</span><span>◎</span></div></div></div><div className="floating-note"><span className="status-dot"/><div>Connection lost?<strong>The experience continues.</strong></div><WifiOff size={20}/></div><div className="art-bottomline"><span>FLUTTER & DART</span><span>THOUGHTFULLY ENGINEERED ↗</span></div></div></section>
       <div className="capability-strip"><div className="section-wrap"><span>PRODUCTION FLUTTER</span><i>✦</i><span>OFFLINE-FIRST THINKING</span><i>✦</i><span>REUSABLE BY DESIGN</span><i>✦</i><span>OPEN-SOURCE CRAFT</span></div></div>
