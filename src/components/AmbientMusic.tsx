@@ -51,7 +51,6 @@ export default function AmbientMusic() {
         engine.current = { context, master, timer: setInterval(schedule, 250) };
 
       }
-      // A blocked autoplay resume can remain pending until a user gesture.
       pending.current = false;
       await engine.current.context.resume();
       setPlaying(engine.current.context.state === 'running');
@@ -60,16 +59,8 @@ export default function AmbientMusic() {
     finally { pending.current = false; }
   }
   useEffect(() => {
-    void startMusic();
-    const interact = (event: Event) => {
-      if (event.target instanceof Element && event.target.closest('.footer-music')) return;
-      void startMusic();
-    };
-    document.addEventListener('pointerdown', interact);
-    document.addEventListener('keydown', interact);
+    // Audio starts only when the visitor explicitly presses Play.
     return () => {
-      document.removeEventListener('pointerdown', interact);
-      document.removeEventListener('keydown', interact);
       if (engine.current) {
         clearInterval(engine.current.timer);
         void engine.current.context.close();
