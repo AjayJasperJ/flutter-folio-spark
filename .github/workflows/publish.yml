@@ -27,6 +27,9 @@ jobs:
           test -s dist/index.html
           test -s dist/AjayJasperJ_Resume.pdf
           test -s dist/favicon.svg
+          test -s dist/sitemap.xml
+          test -s dist/robots.txt
+          test -s dist/google9f74289c0c3a6906.html
           touch dist/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name != 'pull_request'
